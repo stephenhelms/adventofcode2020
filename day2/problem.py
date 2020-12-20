@@ -14,7 +14,7 @@ class Constraint(Enum):
 def main():
     passwords = read_dataset(DATASET)
     print('Problem 1: ', solve_problem(passwords, Constraint.problem1))
-    print('Problem 1: ', solve_problem(passwords, Constraint.problem2))
+    print('Problem 2: ', solve_problem(passwords, Constraint.problem2))
 
 
 class Password(NamedTuple):
@@ -48,7 +48,13 @@ def validate_password(password: Password, constraint_type: Constraint) -> bool:
             return True
         return False
     else:
-        raise NotImplementedError(constraint_type)
+        if (
+                password.password[password.constraint1 - 1] == password.letter and
+                password.password[password.constraint2 - 1] == password.letter
+        ):
+            return True
+        else:
+            return False
 
 
 if __name__ == '__main__':

@@ -11,6 +11,10 @@ def test_day2_problem1_solve():
     assert solve_problem(PASSWORDS, Constraint.problem1) == 2
 
 
+def test_day2_problem2_solve():
+    assert solve_problem(PASSWORDS, Constraint.problem2) == 1
+
+
 def test_day2_read_dataset():
     passwords = read_dataset(DATASET)
     assert passwords[0] == Password(6, 10, 'p', 'ctpppjmdpppppp')
@@ -20,3 +24,8 @@ def test_day2_read_dataset():
 def test_day2_problem1_validate_password():
     assert validate_password(PASSWORDS[0], Constraint.problem1)
     assert not validate_password(PASSWORDS[1], Constraint.problem1)
+
+
+def test_day2_problem2_validate_password():
+    is_valid = [validate_password(pwd, Constraint.problem2) for pwd in PASSWORDS]
+    assert is_valid == [False, False, True]
