@@ -5,13 +5,14 @@ from typing import Callable, Dict, Iterable, List
 
 DATASET = Path(__file__).parent / 'dataset.txt'
 
+
 def _validate_height(value: str) -> bool:
     if 'cm' in value:
         return 150 <= int(value.partition('cm')[0]) <= 193
     if 'in' in value:
         return 59 <= int(value.partition('in')[0]) <= 76
     else:
-        raise ValueError(value)
+        return False
 
 
 VALIDATION_RULES = {
@@ -19,15 +20,16 @@ VALIDATION_RULES = {
     'iyr': lambda s: 2010 <= int(s) <= 2020,
     'eyr': lambda s: 2020 <= int(s) <= 2030,
     'hgt': _validate_height,
-    'hcl': partial(re.match, r'#[a-f|0-9]{6}'),
-    'ecl': partial(re.match, r'amb|blu|brn|gry|grn|hzl|ot'),
-    'pid': partial(re.match, r'\d{9}'),
+    'hcl': partial(re.match, r'^#[a-f|0-9]{6}$'),
+    'ecl': partial(re.match, r'^amb|blu|brn|gry|grn|hzl|oth$'),
+    'pid': partial(re.match, r'^\d{9}$'),
 }
 
 
 def main():
     passports = list(parse_dataset(DATASET.read_text()))
     print('Problem 1: ', count_valid_passports(passports, validate_passport_problem1))
+    print('Problem 2: ', count_valid_passports(passports, validate_passport_problem2))
 
 
 def parse_dataset(dataset: str) -> Iterable[Dict[str, str]]:
@@ -52,7 +54,10 @@ def validate_passport_problem1(passport: Dict[str, str]) -> bool:
 
 
 def validate_passport_problem2(passport: Dict[str, str]) -> bool:
-    pass
+    try:
+        return all(validator(passport[field]) for field, validator in VALIDATION_RULES.items())
+    except KeyError:
+        return False
 
 
 if __name__ == '__main__':
