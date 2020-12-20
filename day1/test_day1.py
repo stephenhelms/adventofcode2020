@@ -1,4 +1,4 @@
-from problem import DATASET, find_entries_with_sum, read_dataset, solve
+from problem import DATASET, find_entries_with_sum, read_dataset, solve_problem1
 
 EXPENSES = [
     1721,
@@ -11,7 +11,7 @@ EXPENSES = [
 
 
 def test_day1_problem1_solve():
-    assert solve(EXPENSES) == 514579
+    assert solve_problem1(EXPENSES) == 514579
 
 
 def test_read_dataset():

@@ -7,7 +7,7 @@ DATASET = Path(__file__).parent / 'dataset.txt'
 
 def main():
     expenses = read_dataset(DATASET)
-    print(solve(expenses))
+    print(solve_problem1(expenses))
 
 
 def read_dataset(filename: Path) -> List[int]:
@@ -15,7 +15,7 @@ def read_dataset(filename: Path) -> List[int]:
         return [int(value) for value in f.read().splitlines()]
 
 
-def solve(expenses: List[int]) -> int:
+def solve_problem1(expenses: List[int]) -> int:
     entry1, entry2 = find_entries_with_sum(expenses, 2020)
     return entry1 * entry2
 
