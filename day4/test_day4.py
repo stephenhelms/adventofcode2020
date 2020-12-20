@@ -1,4 +1,4 @@
-from problem import count_valid_passports, parse_dataset, REQUIRED_KEYS
+from problem import count_valid_passports, parse_dataset, validate_passport_problem1, VALIDATION_RULES
 
 DATASET = """\
 ecl:gry pid:860033327 eyr:2020 hcl:#fffffd
@@ -19,7 +19,7 @@ iyr:2011 ecl:brn hgt:59in\
 
 def test_day4_problem1_solve():
     passports = list(parse_dataset(DATASET))
-    assert count_valid_passports(passports, REQUIRED_KEYS) == 2
+    assert count_valid_passports(passports, validate_passport_problem1) == 2
 
 
 def test_day4_parse_dataset():
