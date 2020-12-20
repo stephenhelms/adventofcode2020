@@ -1,4 +1,4 @@
-from problem import DATASET, Password, read_dataset, solve_problem, validate_password
+from problem import Constraint, DATASET, Password, read_dataset, solve_problem, validate_password
 
 PASSWORDS = [
     Password(1, 3, 'a', 'abcde'),
@@ -8,7 +8,7 @@ PASSWORDS = [
 
 
 def test_day2_problem1_solve():
-    assert solve_problem(PASSWORDS) == 2
+    assert solve_problem(PASSWORDS, Constraint.problem1) == 2
 
 
 def test_day2_read_dataset():
@@ -17,6 +17,6 @@ def test_day2_read_dataset():
     assert len(passwords) == 1000
 
 
-def test_day2_validate_password():
-    assert validate_password(PASSWORDS[0])
-    assert not validate_password(PASSWORDS[1])
+def test_day2_problem1_validate_password():
+    assert validate_password(PASSWORDS[0], Constraint.problem1)
+    assert not validate_password(PASSWORDS[1], Constraint.problem1)
