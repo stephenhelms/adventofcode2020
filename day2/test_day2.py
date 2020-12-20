@@ -28,4 +28,4 @@ def test_day2_problem1_validate_password():
 
 def test_day2_problem2_validate_password():
     is_valid = [validate_password(pwd, Constraint.problem2) for pwd in PASSWORDS]
-    assert is_valid == [False, False, True]
+    assert is_valid == [True, False, False]

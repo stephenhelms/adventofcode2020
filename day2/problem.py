@@ -48,10 +48,10 @@ def validate_password(password: Password, constraint_type: Constraint) -> bool:
             return True
         return False
     else:
-        if (
-                password.password[password.constraint1 - 1] == password.letter and
+        if sum([
+                password.password[password.constraint1 - 1] == password.letter,
                 password.password[password.constraint2 - 1] == password.letter
-        ):
+        ]) == 1:
             return True
         else:
             return False
