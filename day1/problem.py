@@ -1,13 +1,15 @@
+from functools import reduce
 from itertools import product, tee
 from pathlib import Path
-from typing import List, Tuple
+from typing import Iterable, List
 
 DATASET = Path(__file__).parent / 'dataset.txt'
 
 
 def main():
     expenses = read_dataset(DATASET)
-    print(solve_problem1(expenses))
+    print('Problem 1: ', solve_problem(expenses, 2))
+    print('Problem 2: ', solve_problem(expenses, 3))
 
 
 def read_dataset(filename: Path) -> List[int]:
@@ -15,17 +17,17 @@ def read_dataset(filename: Path) -> List[int]:
         return [int(value) for value in f.read().splitlines()]
 
 
-def solve_problem1(expenses: List[int]) -> int:
-    entry1, entry2 = find_entries_with_sum(expenses, 2020)
-    return entry1 * entry2
+def solve_problem(expenses: List[int], num_entries: int) -> int:
+    entries = find_entries_with_sum(expenses, num_entries, 2020)
+    return reduce(lambda agg, v: agg * v, entries)
 
 
-def find_entries_with_sum(expenses: List[int], summed_value: int) -> Tuple[int, int]:
+def find_entries_with_sum(expenses: List[int], num_entries: int, summed_value: int) -> Iterable[int]:
     possible_values = (value for value in expenses if value < summed_value)
-    for value1, value2 in product(*tee(possible_values)):
-        if value1 + value2 == summed_value:
-            return value1, value2
-    raise RuntimeError(f'No pair of values found that add to {summed_value}')
+    for values in product(*tee(possible_values, num_entries)):
+        if sum(values) == summed_value:
+            return values
+    raise RuntimeError(f'No set of {num_entries} values found that add to {summed_value}')
 
 
 if __name__ == '__main__':
