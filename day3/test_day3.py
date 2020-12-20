@@ -1,4 +1,4 @@
-from problem import count_trees_hit, parse_landscape
+from problem import count_trees_hit, multiply_trees_hit_on_angles, parse_landscape
 
 LANDSCAPE = """\
 ..##.......
@@ -16,7 +16,17 @@ LANDSCAPE = """\
 
 
 def test_day3_solve_problem1():
-    assert count_trees_hit(LANDSCAPE, 3, 1) == 7
+    assert count_trees_hit(parse_landscape(LANDSCAPE), 3, 1) == 7
+
+
+def test_da3_solve_problem2():
+    assert multiply_trees_hit_on_angles(parse_landscape(LANDSCAPE), [
+        (1, 1),
+        (3, 1),
+        (5, 1),
+        (7, 1),
+        (1, 2),
+    ]) == 336
 
 
 def test_day3_parse_landscape():
