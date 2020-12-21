@@ -11,6 +11,7 @@ DATASET = Path(__file__).parent / 'dataset.txt'
 def main():
     rules = parse_rules(DATASET.read_text())
     print('Problem 1: ', count_num_possible_containing_bags(rules, 'shiny gold'))
+    print('Problem 2: ', count_num_inner_bags(rules, 'shiny gold'))
 
 
 def parse_rules(text: str) -> BagRules:
@@ -43,6 +44,11 @@ def check_outer_bag_can_contain_inner(rules: BagRules, outer_bag: str, inner_bag
         elif check_outer_bag_can_contain_inner(rules, allowed_inner_bag, inner_bag):
             return True
     return False
+
+
+def count_num_inner_bags(rules: BagRules, outer_bag: str) -> int:
+    return sum(number * (1 + count_num_inner_bags(rules, inner_bag))
+               for inner_bag, number in rules[outer_bag].items())
 
 
 if __name__ == '__main__':
