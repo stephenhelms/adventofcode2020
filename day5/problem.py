@@ -1,3 +1,4 @@
+from itertools import tee
 from pathlib import Path
 
 DATASET = Path(__file__).parent / 'dataset.txt'
@@ -5,8 +6,19 @@ DATASET = Path(__file__).parent / 'dataset.txt'
 
 def main():
     codes = DATASET.read_text().splitlines(False)
-    highest_seat_id = max(code_to_seat_id(code) for code in codes)
+    seat_ids = [code_to_seat_id(code) for code in codes]
+    highest_seat_id = max(seat_ids)
     print('Problem 1: ', highest_seat_id)
+    missing_seat_id = next(id + 1 for id, next_id in pairwise(sorted(seat_ids))
+                           if next_id - id > 1)
+    print('Problem 2: ', missing_seat_id)
+
+
+def pairwise(iterable):
+    "s -> (s0,s1), (s1,s2), (s2, s3), ..."
+    a, b = tee(iterable)
+    next(b, None)
+    return zip(a, b)
 
 
 def code_to_seat_id(code: str) -> int:
