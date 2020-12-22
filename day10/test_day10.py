@@ -1,4 +1,4 @@
-from problem import get_device_jolts, parse_adapters, solve_problem1
+from problem import build_longest_chain, count_possible_chains, get_device_jolts, parse_adapters, solve_problem1
 
 ADAPTERS = """\
 16
@@ -22,4 +22,11 @@ def test_day10_get_device_jolts():
 
 def test_day10_solve_problem1():
     adapters = parse_adapters(ADAPTERS)
-    assert solve_problem1(adapters) == 7*5
+    chain = build_longest_chain(adapters)
+    assert solve_problem1(chain) == 7 * 5
+
+
+def test_day10_count_possible_chains():
+    adapters = parse_adapters(ADAPTERS)
+    chain = build_longest_chain(adapters)
+    assert count_possible_chains(chain) == 8
