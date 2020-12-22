@@ -1,4 +1,4 @@
-from problem import find_invalid_number, parse_code
+from problem import encode_weakness, find_invalid_number, find_range_with_sum, parse_code
 
 CODE = """\
 35
@@ -27,3 +27,13 @@ CODE = """\
 def test_day9_find_invalid_number():
     code = parse_code(CODE)
     assert find_invalid_number(code, 5) == 127
+
+
+def test_day9_find_range_with_sum():
+    code = parse_code(CODE)
+    assert find_range_with_sum(code, 127) == [15, 25, 47, 40]
+
+
+def test_day9_encode_weakness():
+    assert encode_weakness([15, 25, 47, 40]) == 62
+
