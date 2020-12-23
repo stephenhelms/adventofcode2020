@@ -21,7 +21,7 @@ def test_day11_commands_state():
     state = ShipState(0, 0, 0)
     for idx, (command, expected_state) in enumerate(zip(parse_commands(COMMANDS), EXPECTED_STATES)):
         print(idx)
-        state = command.execute(state)
+        state = state.execute_command(command)
         assert state == expected_state
 
 
