@@ -5,6 +5,7 @@ from typing import Iterable, Tuple
 def main():
     starting_seq = 14, 8, 16, 0, 1, 17
     print('Problem 1: ', compute_nth_number(starting_seq, 2020))
+    print('Problem 2: ', compute_nth_number(starting_seq, 30000000))
 
 
 def compute_nth_number(starting_seq: Tuple[int], pos: int) -> int:
