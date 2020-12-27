@@ -1,4 +1,4 @@
-from problem import compute_solution, find_next_bus_and_wait_time, parse_notes
+from problem import compute_solution, find_magic_timestamp, find_next_bus_and_wait_time, parse_notes
 
 NOTES = """\
 939
@@ -15,3 +15,8 @@ def test_day13_find_next_bus_and_timestamp():
 
 def test_day13_compute_solution():
     assert compute_solution(59, 5) == 295
+
+
+def test_day13_find_magic_timestamp():
+    earliest_deparature, bus_schedules = parse_notes(NOTES)
+    assert find_magic_timestamp(bus_schedules) == 1068781
