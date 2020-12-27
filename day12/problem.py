@@ -1,4 +1,3 @@
-from dataclasses import dataclass
 import math
 from pathlib import Path
 from typing import List, NamedTuple
