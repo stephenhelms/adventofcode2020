@@ -36,7 +36,7 @@ def test_day16_build_validator():
 
 
 @pytest.mark.parametrize('ticket,expected_value', [
-    ([7, 3, 47], 0),
+    ([7, 3, 47], None),
     ([40, 4, 50], 4),
     ([55, 2, 20], 55),
     ([38, 6, 12], 12),
