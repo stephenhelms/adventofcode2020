@@ -1,6 +1,7 @@
 import pytest
 
-from problem import build_validator, calculate_ticket_error_rate, invalid_ticket_score, parse_tickets
+from problem import build_validator, calculate_ticket_error_rate, find_field_ordering, invalid_ticket_score,\
+    parse_tickets, validate_ticket
 
 EXAMPLE_TICKETS = """\
 class: 1-3 or 5-7
@@ -43,3 +44,13 @@ def test_day16_build_validator():
 def test_day16_invalid_ticket_value(ticket, expected_value):
     rules, my_ticket, nearby_tickets = parse_tickets(EXAMPLE_TICKETS)
     assert invalid_ticket_score(rules, ticket) == expected_value
+
+
+def test_day16_validate_ticket():
+    rules, my_ticket, nearby_tickets = parse_tickets(EXAMPLE_TICKETS)
+    assert validate_ticket(rules, ['row', 'class', 'seat'], nearby_tickets[0])
+
+
+def test_day16_find_field_ordering():
+    rules, my_ticket, nearby_tickets = parse_tickets(EXAMPLE_TICKETS)
+    assert find_field_ordering(rules, nearby_tickets) == ['row', 'class', 'seat']
