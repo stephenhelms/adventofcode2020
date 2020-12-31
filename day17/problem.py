@@ -6,16 +6,21 @@ DATASET = Path(__file__).parent / 'dataset.txt'
 
 
 def main():
-    state = parse_initial_state(DATASET.read_text())
+    state_3d = parse_initial_state(DATASET.read_text(), 3)
     for _ in range(6):
-        state = compute_next_state(state)
-    print('Problem 1: ', len(state))
+        state_3d = compute_next_state(state_3d)
+    print('Problem 1: ', len(state_3d))
+
+    state_4d = parse_initial_state(DATASET.read_text(), 4)
+    for _ in range(6):
+        state_4d = compute_next_state(state_4d)
+    print('Problem 1: ', len(state_4d))
 
 
-def parse_initial_state(text: str) -> Set[Tuple[int, int, int]]:
-    z = 0
+def parse_initial_state(text: str, n_dim: int = 3) -> Set[Tuple]:
+    other_dims = [0] * (n_dim - 2)
     return {
-        (x, y, z)
+        (x, y, *other_dims)
         for x, line in enumerate(text.splitlines(False))
         for y, char in enumerate(line)
         if char == '#'
@@ -23,8 +28,8 @@ def parse_initial_state(text: str) -> Set[Tuple[int, int, int]]:
 
 
 def compute_next_state(active_cubes: Set[Tuple[int, int, int]]):
-    all_neighbors: Set[Tuple[int, int, int]] = set()
-    next_state: Set[Tuple[int, int, int]] = set()
+    all_neighbors: Set[Tuple] = set()
+    next_state: Set[Tuple] = set()
     for active_cube in active_cubes:
         adjacent = set(iter_adjacent_cubes(active_cube))
         all_neighbors |= adjacent
@@ -39,12 +44,10 @@ def compute_next_state(active_cubes: Set[Tuple[int, int, int]]):
     return next_state
 
 
-def iter_adjacent_cubes(cube: Tuple[int, int, int]) -> Iterable[Tuple[int, int, int]]:
-    x, y, z = cube
-    for neighbor in it.product(range(x - 1, x + 2),
-                               range(y - 1, y + 2),
-                               range(z - 1, z + 2)):
-        if neighbor == (x, y, z):
+def iter_adjacent_cubes(cube: Tuple) -> Iterable[Tuple]:
+    dim_iterators = (range(cube[dim_idx] - 1, cube[dim_idx] + 2) for dim_idx in range(len(cube)))
+    for neighbor in it.product(*dim_iterators):
+        if neighbor == cube:
             continue
         else:
             yield neighbor

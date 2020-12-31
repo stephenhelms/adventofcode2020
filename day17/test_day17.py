@@ -39,3 +39,10 @@ def test_day17_solution_problem1():
     for _ in range(6):
         state = compute_next_state(state)
     assert len(state) == 112
+
+
+def test_day17_solution_problem2():
+    state = parse_initial_state(INITIAL_STATE, 4)
+    for _ in range(6):
+        state = compute_next_state(state)
+    assert len(state) == 848
